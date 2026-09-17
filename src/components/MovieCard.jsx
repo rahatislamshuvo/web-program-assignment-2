@@ -21,12 +21,12 @@ function MovieCard({ movie, onDetails }) {
       <div className="card-body">
         <h3 className="card-title">{movie.name}</h3>
         <p className="card-meta">
-          <span>Rating: {rating}</span>
-          <span>|</span>
-          <span>{year}</span>
+          <span>⭐ {rating}</span>
+          <span>•</span>
+          <span>📅 {year}</span>
         </p>
         <button className="card-btn" onClick={() => onDetails(movie)}>
-          View Details
+          See Details
         </button>
       </div>
     </div>

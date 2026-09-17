@@ -87,10 +87,13 @@
 
 /* hero section */
 .hero {
-  background: #c7d8f5;
-  padding: 60px 15px;
+  background:
+    linear-gradient(rgba(30, 64, 175, 0.75), rgba(0, 0, 0, 0.65)),
+    url('https://image.tmdb.org/t/p/original/9n2tJBplPbgR2ca05hS5CKXwP2c.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 70px 15px;
   text-align: center;
-  border-bottom: 1px solid #b5c8e8;
 }
 
 .hero-content {
@@ -99,19 +102,20 @@
 }
 
 .hero-small {
-  color: #1e40af;
+  color: #dbeafe;
   margin-bottom: 8px;
   font-size: 14px;
 }
 
 .hero h1 {
   font-size: 38px;
-  color: #111;
+  color: white;
   margin-bottom: 10px;
+  letter-spacing: 2px;
 }
 
 .hero-text {
-  color: #444;
+  color: #e5e7eb;
   font-size: 15px;
   line-height: 1.5;
   margin-bottom: 20px;
@@ -152,12 +156,12 @@
 }
 
 .hero-stats h3 {
-  color: #111;
+  color: white;
   font-size: 20px;
 }
 
 .hero-stats span {
-  color: #555;
+  color: #d1d5db;
   font-size: 13px;
 }
 

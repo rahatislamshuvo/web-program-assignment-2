@@ -18,7 +18,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="nav-inner">
         <Link to="/" className="logo">
-          MyMovies
+          🎬 MovieExplorer
         </Link>
 
         <button className="menu-btn" onClick={() => setOpen(!open)}>
@@ -51,7 +51,7 @@ function Navbar() {
             Movies
           </Link>
           <Link to="/movies" className="nav-btn" onClick={() => setOpen(false)}>
-            Browse
+            Browse Movies
           </Link>
         </div>
       </div>

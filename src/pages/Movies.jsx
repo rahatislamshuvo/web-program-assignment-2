@@ -89,13 +89,13 @@ function Movies() {
 
   return (
     <div className="movies-page">
-      <h2 className="page-title">All Movies</h2>
-      <p className="page-sub">Write a name below and search.</p>
+      <h2 className="page-title">Browse Movies</h2>
+      <p className="page-sub">Search your favorite show or explore the list below.</p>
 
       <form className="search-box" onSubmit={doSearch}>
         <input
           type="text"
-          placeholder="Write movie name..."
+          placeholder="🔍 Search for a movie..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
