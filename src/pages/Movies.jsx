@@ -6,114 +6,114 @@ import MovieModal from '../components/MovieModal.jsx'
 function Movies() {
   const [params] = useSearchParams()
   const q = params.get('q') || ''
-  const [movies, setMovies] = useState([])
+
+  const [list, setList] = useState([])
   const [search, setSearch] = useState(q)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [selected, setSelected] = useState(null)
 
-  // if user searched from navbar, update box value
+  // when coming from navbar search
   useEffect(() => {
     setSearch(q)
   }, [q])
 
-  // load all shows at first
+  // first time load all movies
   useEffect(() => {
     fetch('https://api.tvmaze.com/shows')
-      .then((res) => {
-        if (!res.ok) throw new Error('failed to load')
-        return res.json()
-      })
+      .then((res) => res.json())
       .then((data) => {
-        setMovies(data.slice(0, 48)) // only first 48 to keep page fast
+        setList(data.slice(0, 32))
         setLoading(false)
       })
       .catch(() => {
-        setError('Something went wrong. Please try again later.')
+        setError('Could not load movies. Try again later.')
         setLoading(false)
       })
   }, [])
 
-  // live search - fetch as user types (with small delay)
+  // search while typing
   useEffect(() => {
-    // skip first load, only run when user types
-    if (search.trim() === '') return
+    if (search === '') return
 
-    const timer = setTimeout(() => {
+    const t = setTimeout(() => {
       setLoading(true)
       fetch(`https://api.tvmaze.com/search/shows?q=${search}`)
         .then((res) => res.json())
         .then((data) => {
-          setMovies(data.map((item) => item.show))
+          let onlyShows = []
+          for (let i = 0; i < data.length; i++) {
+            onlyShows.push(data[i].show)
+          }
+          setList(onlyShows)
           setLoading(false)
         })
         .catch(() => {
-          setError('Search failed. Check your internet.')
+          setError('Search is not working. Check internet.')
           setLoading(false)
         })
-    }, 500)
+    }, 600)
 
-    return () => clearTimeout(timer)
+    return () => clearTimeout(t)
   }, [search])
 
-  // search function
-  const handleSearch = (e) => {
+  function doSearch(e) {
     e.preventDefault()
+    setError('')
+
     if (search.trim() === '') {
-      // if empty, load default again
       setLoading(true)
       fetch('https://api.tvmaze.com/shows')
         .then((res) => res.json())
         .then((data) => {
-          setMovies(data.slice(0, 48))
+          setList(data.slice(0, 32))
           setLoading(false)
         })
       return
     }
 
     setLoading(true)
-    setError('')
     fetch(`https://api.tvmaze.com/search/shows?q=${search}`)
       .then((res) => res.json())
       .then((data) => {
-        const onlyShows = data.map((item) => item.show)
-        setMovies(onlyShows)
+        let arr = []
+        data.forEach((item) => arr.push(item.show))
+        setList(arr)
         setLoading(false)
       })
       .catch(() => {
-        setError('Search failed. Check your internet.')
+        setError('Search is not working. Check internet.')
         setLoading(false)
       })
   }
 
   return (
     <div className="movies-page">
-      <h2 className="page-title">Browse Movies</h2>
-      <p className="page-sub">Search your favorite show or explore the list below.</p>
+      <h2 className="page-title">All Movies</h2>
+      <p className="page-sub">Write a name below and search.</p>
 
-      <form className="search-box" onSubmit={handleSearch}>
+      <form className="search-box" onSubmit={doSearch}>
         <input
           type="text"
-          placeholder="🔍 Search for a movie..."
+          placeholder="Write movie name..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <button type="submit">Search</button>
       </form>
 
-      {loading && <p className="status">Loading movies...</p>}
+      {loading && <p className="status">Please wait, loading...</p>}
       {error && <p className="status error">{error}</p>}
-      {!loading && !error && movies.length === 0 && (
-        <p className="status">No movies found. Try another name.</p>
+      {!loading && !error && list.length === 0 && (
+        <p className="status">Nothing found. Try other name.</p>
       )}
 
       <div className="movie-grid">
-        {movies.map((m) => (
+        {list.map((m) => (
           <MovieCard key={m.id} movie={m} onDetails={setSelected} />
         ))}
       </div>
 
-      {/* details popup */}
       {selected && <MovieModal movie={selected} onClose={() => setSelected(null)} />}
     </div>
   )

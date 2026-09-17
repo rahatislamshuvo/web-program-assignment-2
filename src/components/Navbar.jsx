@@ -7,7 +7,7 @@ function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  // navbar search -> go to movies page with query
+  // when search from navbar just go to movies page
   const goSearch = (e) => {
     e.preventDefault()
     navigate(`/movies?q=${text}`)
@@ -18,24 +18,22 @@ function Navbar() {
     <nav className="navbar">
       <div className="nav-inner">
         <Link to="/" className="logo">
-          <span className="logo-icon">🎬</span> MovieExplorer
+          MyMovies
         </Link>
 
-        {/* simple mobile menu button */}
         <button className="menu-btn" onClick={() => setOpen(!open)}>
-          {open ? '✕' : '☰'}
+          {open ? 'X' : 'Menu'}
         </button>
 
         <div className={`nav-links ${open ? 'show' : ''}`}>
-          {/* search in navbar */}
           <form className="nav-search" onSubmit={goSearch}>
             <input
               type="text"
-              placeholder="🔍 Search..."
+              placeholder="Search movies..."
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
-            <button type="submit">Go</button>
+            <button type="submit">Search</button>
           </form>
 
           <Link
@@ -53,7 +51,7 @@ function Navbar() {
             Movies
           </Link>
           <Link to="/movies" className="nav-btn" onClick={() => setOpen(false)}>
-            Browse Movies
+            Browse
           </Link>
         </div>
       </div>

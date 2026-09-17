@@ -3,15 +3,15 @@ function Footer() {
     <footer className="footer">
       <div className="footer-inner">
         <div className="footer-left">
-          <h3>🎬 MovieExplorer</h3>
-          <p>Find movies you love. Simple and fast.</p>
+          <h3>MyMovies</h3>
+          <p>Made by Rahat for assignment 2.</p>
         </div>
         <div className="footer-right">
-          <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="https://www.tvmaze.com/api" target="_blank" rel="noreferrer">TVMaze</a>
+          <a href="https://github.com" target="_blank" rel="noreferrer">Github</a>
+          <a href="https://www.tvmaze.com/api" target="_blank" rel="noreferrer">API</a>
         </div>
       </div>
-      <p className="copy">© 2026 MovieExplorer. All rights reserved.</p>
+      <p className="copy">© 2026 MyMovies - Rahat Islam Shuvo</p>
     </footer>
   )
 }

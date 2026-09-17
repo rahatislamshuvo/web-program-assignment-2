@@ -6,27 +6,26 @@ function Home() {
     <div>
       <Hero />
 
-      {/* small features section, just to make home page nicer */}
       <section className="features">
-        <h2>Why use MovieExplorer?</h2>
+        <h2>What you can do here</h2>
         <div className="feature-grid">
           <div className="feature">
-            <span className="f-icon">🔍</span>
-            <h3>Quick Search</h3>
-            <p>Search any show title and get results instantly from TVMaze.</p>
+            <div className="f-icon">1</div>
+            <h3>Search Movies</h3>
+            <p>Type any movie name on the movies page and press search.</p>
           </div>
           <div className="feature">
-            <span className="f-icon">🎞️</span>
-            <h3>Details Modal</h3>
-            <p>Click see details to read summary, rating, genre and more.</p>
+            <div className="f-icon">2</div>
+            <h3>See Details</h3>
+            <p>Click view details to see story, rating and release date.</p>
           </div>
           <div className="feature">
-            <span className="f-icon">📱</span>
-            <h3>Fully Responsive</h3>
-            <p>Works nicely on mobile, tablet and desktop screens.</p>
+            <div className="f-icon">3</div>
+            <h3>Easy to Use</h3>
+            <p>Simple design, works on phone and computer both.</p>
           </div>
         </div>
-        <Link to="/movies" className="btn-main center-btn">Browse All Movies</Link>
+        <Link to="/movies" className="btn-main center-btn">Go to Movies</Link>
       </section>
     </div>
   )

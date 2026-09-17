@@ -1,20 +1,31 @@
 function MovieModal({ movie, onClose }) {
   if (!movie) return null
 
-  const img = movie.image?.original || movie.image?.medium || ''
-  const rating = movie.rating?.average || 'N/A'
-  const year = movie.premiered || 'Unknown'
-  const genres = movie.genres && movie.genres.length > 0 ? movie.genres.join(', ') : 'N/A'
+  let img = ''
+  if (movie.image) {
+    img = movie.image.original || movie.image.medium || ''
+  }
 
-  // remove html tags from summary
-  const cleanSummary = movie.summary
-    ? movie.summary.replace(/<[^>]+>/g, '')
-    : 'No summary available.'
+  let rating = 'N/A'
+  if (movie.rating && movie.rating.average) rating = movie.rating.average
+
+  let year = movie.premiered || 'Unknown'
+
+  let genres = 'N/A'
+  if (movie.genres && movie.genres.length > 0) {
+    genres = movie.genres.join(', ')
+  }
+
+  // summary has html tags so remove them
+  let summary = 'No details found.'
+  if (movie.summary) {
+    summary = movie.summary.replace(/<[^>]+>/g, '')
+  }
 
   return (
     <div className="modal-bg" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-x" onClick={onClose}>✕</button>
+        <button className="modal-x" onClick={onClose}>X</button>
 
         {img ? (
           <img src={img} alt={movie.name} className="modal-img" />
@@ -25,23 +36,23 @@ function MovieModal({ movie, onClose }) {
         <div className="modal-body">
           <h2>{movie.name}</h2>
           <p className="modal-info">
-            ⭐ Rating: {rating} &nbsp; | &nbsp; 📅 Release: {year}
+            Rating: {rating} | Released: {year}
           </p>
           <p className="modal-info small">
-            🎭 Genre: {genres} &nbsp; • &nbsp; 🌍 {movie.language || 'N/A'} &nbsp; • &nbsp; ⏱ {movie.runtime || '?'} min
+            Type: {genres} | Language: {movie.language || 'N/A'}
           </p>
 
-          <h4>Overview:</h4>
-          <p className="modal-summary">{cleanSummary}</p>
+          <h4>Story:</h4>
+          <p className="modal-summary">{summary}</p>
 
           {movie.officialSite && (
             <a href={movie.officialSite} target="_blank" rel="noreferrer" className="site-link">
-              Visit official site →
+              Official site link
             </a>
           )}
 
           <div className="modal-actions">
-            <button className="btn-close" onClick={onClose}>❌ Close</button>
+            <button className="btn-close" onClick={onClose}>Close</button>
           </div>
         </div>
       </div>
